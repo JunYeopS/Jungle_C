@@ -86,7 +86,41 @@ int main()
 
 void moveEvenItemsToBack(LinkedList *ll)
 {
-	/* add your code here */
+	ListNode *tail = ll->head;
+
+	// 꼬리 찾기 
+	while (tail->next)
+	{
+		tail =tail->next; 
+	}
+	ListNode *cur = ll->head;
+	ListNode *prev = NULL;
+
+	// 전체 길이만큼 순회하면서 짝수를 찾아 꼬리 뒤로 연결한다 
+	for (int i = 0; i < ll->size; i++){
+
+		ListNode *next = cur->next;   // next 노드 갱신 
+		
+		if (cur->item %2 ==0){    // 짝수면 
+			if (prev){					
+				prev->next = next;
+			}else{
+				ll->head = next;    // 맨처음 생각해보자 head가 짝수 였으면 뒤로 보내니까 head는 next가 된다 
+			}	
+			cur->next = NULL;     	// 연결 끊어주고 맨뒤는 NULL 주소  
+			tail->next = cur;		// tail 뒤에 cur 짝수 연결해주고 
+			tail = cur;				// tail 갱신 
+		}
+		else{
+			prev = cur; 			// 홀수 였다면 다음 으로 넘어가야 하니까 prev가 cur이 되고 
+		}
+		cur = next;					// cur은 next가 된다 
+	}
+	
+	//홀수 노드를 제자리에서 떼어** → **맨 뒤에(현재 tail 뒤) 붙이고**,
+	
+	//짝수는 그대로 두며 prev를 전진**시킨다.
+    
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
