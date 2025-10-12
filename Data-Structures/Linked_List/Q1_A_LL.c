@@ -15,7 +15,7 @@ typedef struct _listnode{
 	int item;
 	struct _listnode *next;
 } ListNode;			// You should not change the definition of ListNode
-
+ 
 typedef struct _linkedlist{
 	int size;
 	ListNode *head;
@@ -88,9 +88,40 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+//LinkedList *ll -> 첫 번째 매개변수: 연결 리스트를 가리키는 포인터
+// 즉, 함수 내부에서 ll->head, ll->size로:
+// head (리스트의 첫 노드)
+// size (노드 개수)
+// 두 번째 매개변수: 삽입하려는 값
 int insertSortedLL(LinkedList *ll, int item)
 {
-	/* add your code here */
+	if (ll == NULL) return -1;
+
+	ListNode *cur = ll->head; //첫번째 노드의 주소 즉 head를 포인터 함수 cur에 저장 
+	int index = 0;
+	
+	// 빈 리스트 or 첫 노드보다 작으면 맨 앞에 삽입 
+	if (cur == NULL || cur->item < item ) {
+		insertNode(ll, 0 , item);
+		return 0; // 0 은 삽입된 인덱스 
+	}
+	
+	// 리스트를 순회하며 중복 확인 & 삽입 위치 찾기
+	while (cur->next != NULL && cur->next->item<item )
+	{
+		// 중복이 있으면 return -1
+		if (cur->item == item){
+			return -1;
+		}
+		index++;
+	}
+	
+	// 중복 체크: 삽입 위치 바로 앞 노드와 다음 노드 
+	if (cur->item == item || (cur->next != NULL && cur->next->item == item))
+		return -1;
+
+	insertNode(ll,index+1,item);
+	return index+1;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
