@@ -101,9 +101,32 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+// inserts nodes of the second list into alternate positions of the first list
+// 번갈아 가면서 ll1에 합쳐야 함 
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
-    /* add your code here */
+	ListNode *cur1 = ll1->head;
+	ListNode *cur2 = ll2->head;
+	ListNode *next1 = cur1->next;
+	ListNode *next2 = cur2->next;
+
+	while (cur1 != NULL && cur2 != NULL){
+		next1 = cur1->next; //next1 = ll1의 next주소 
+	 	next2 = cur2->next; //next = ll2의 next주소
+		
+		cur1->next = cur2; //ll2의 노드를 ll1 뒤에 붙임
+		cur2->next = next1; //ll2 노드의 다음은 원래 ll1 다음 노드
+
+		cur1 = next1;
+		cur2 = next2;
+	}
+	// 남은 노드로 head 업데이트
+	if (cur2 == NULL ){
+		ll2->head = NULL;
+		ll2->size = 0;
+	} else {
+		ll2->head = cur2;	
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
