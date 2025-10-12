@@ -83,10 +83,48 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-
+//Write a C function moveOddItemsToBackLL() that moves all the odd integers to the back of the linked list
+// 모든 홀수 정수들을 뒤로 보내면 된다 
 void moveOddItemsToBack(LinkedList *ll)
 {
-	/* add your code here */
+	// ll의 꼬리를 찾아서 
+	ListNode *tail = ll->head;
+	while (tail->next)
+	{
+		tail = tail->next;
+	}
+
+    ListNode *prev = NULL;
+	ListNode *cur  = ll->head;
+
+	// 전체 길이만큼 순회하면서 홀수를 찾아 꼬리 뒤로 연결한다 
+	for(int i = 0; i < ll->size; i++){
+		ListNode *next = cur->next;		
+		
+		if (cur->item % 2 != 0){
+            if (prev){ 
+				prev->next = next; // 중간 노드
+			}
+			/*
+			... -> [prev] -> [cur] -> [next] -> ...
+             			(cur를 떼고 싶다) 
+			떼고 나면:  [prev] ------> [next]
+			짝수가 있었으면 prev가 있음 
+			*/
+
+            else       ll->head  = next; // 맨 앞 노드
+            
+			cur->next = NULL;            // 독립 노드로 만들고
+            tail->next = cur;            // 꼬리 뒤에 붙이고
+            tail = cur;                  // 새 꼬리로 갱신
+		}
+        else {
+            // 짝수면 그대로 두고 prev를 현재로 이동
+            prev = cur;
+        }
+        cur = next;
+	}
+	
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
