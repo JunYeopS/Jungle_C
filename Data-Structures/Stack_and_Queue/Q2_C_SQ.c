@@ -110,15 +110,47 @@ int main()
 
 
 //////////////////////////////////////////////////////////////////////////////////
-
+/*
+to create a stack (linked-list-based) by pushing all integers that are storing in the linked list.
+The first node of the linked list is pushed first, and then the second node, and so on.
+Remember to empty the stack at the beginning, if the stack is not empty.
+*/
 void createStackFromLinkedList(LinkedList *ll, Stack *s)
 {
-    /* add your code here */
+	// 스택이 비어있지 않으면 비우기
+    if (!isEmptyStack(s)){
+		removeAllItemsFromStack(s);
+	}
+
+	ListNode *cur = ll->head;
+
+	while (cur != NULL){
+		ListNode *next = cur->next;
+		push(s,cur->item);
+		cur = next;
+	}
+	
 }
 
 void removeEvenValues(Stack *s)
 {
-	/* add your code here */
+	// pop을 이용하려면 임시 스택 temp을 생성 (why?: stack이 거꾸로 넣고 거꾸로 나와야 하니까)
+    Stack temp;
+    temp.ll.head = NULL;
+    temp.ll.size = 0;
+
+    // 1) 짝수는 버리고, 홀수만 temp에 넣는다 
+    while (!isEmptyStack(s)) {
+        int poped = pop(s);
+        if ((poped & 1) != 0) {        // 홀수만 보관 (짝수 제거)
+            push(&temp, poped);		
+        }
+    }
+
+    // 2) temp → s 로 되돌리기 (원래 상대 순서 유지)
+    while (!isEmptyStack(&temp)) {
+        push(s, pop(&temp));
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////////////
