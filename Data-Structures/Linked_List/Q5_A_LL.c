@@ -38,7 +38,8 @@ int removeNode(LinkedList *ll, int index);
 
 int main()
 {
-	int c, i;
+	int c =1; 
+	int i;
 	LinkedList ll;
 	LinkedList resultFrontList, resultBackList;
 
@@ -102,7 +103,55 @@ int main()
 
 void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, LinkedList *resultBackList)
 {
-	/* add your code here */
+
+	// 결과 리스트 초기화
+    resultFrontList->head = NULL; resultFrontList->size = 0;
+    resultBackList->head  = NULL; resultBackList->size  = 0;
+
+    // 엣지 케이스
+    if (ll == NULL || ll->head == NULL || ll->size == 0) {
+        return;
+    }
+
+	ListNode *cur = ll->head;
+	ListNode *frontTail = NULL;
+
+	int half = ((ll->size)+1)/2;
+
+	for (int i = 0; i < half; i++){
+		ListNode *next = cur->next;
+		cur->next = NULL; // 분리 
+
+		if (resultFrontList->head == NULL){    //처음 
+			resultFrontList->head =cur;  // front list 에 head를 ll 에 현재(=head)로 넣는다 
+			frontTail = cur;			// 마지막은 분리된 cur이 된다. 
+		} else{
+			frontTail->next = cur;			// 두번째부터는 head뒤에 cur을 연결 해야한다 
+			frontTail = cur;				// 끝은 cur로 갱신 
+		}
+		resultFrontList->size++;
+		cur = next; //갱신 
+		
+	}
+	
+	ListNode *backTail = NULL;
+	// ll의 나머지는 모두 BackList에 
+    while (cur != NULL) {
+        ListNode *next = cur->next;
+        cur->next = NULL;
+
+        if (resultBackList->head == NULL) {
+            resultBackList->head = cur;
+            backTail = cur;
+        } else{
+            backTail->next = cur;
+            backTail = cur;
+        }
+        resultBackList->size++;
+        cur = next;
+    }
+    ll->head = NULL;
+    ll->size = 0;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
