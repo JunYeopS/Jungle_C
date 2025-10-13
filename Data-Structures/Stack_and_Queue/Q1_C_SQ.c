@@ -116,14 +116,70 @@ int main()
 
 void createQueueFromLinkedList(LinkedList *ll, Queue *q)
 {
-	/* add your code here */
+	if (q->ll.size != 0){
+		removeAllItemsFromQueue(q); //기존 큐 비우기 
+	}
+	if (ll->head == NULL||ll->size == 0){
+		return;
+	}
+	ListNode *cur = ll->head;
+
+	while (cur !=NULL)
+	{
+		enqueue(q,cur->item);
+		cur = cur->next;
+	}
+
 }
 
 void removeOddValues(Queue *q)
 {
-	/* add your code here */
-}
+	//엣지 포인트 
+	if (q->ll.head == NULL||q->ll.size == 0){
+		return;
+	}
+	
+	ListNode *cur = q->ll.head;
+	ListNode *prev = NULL;
 
+	while (cur->next != NULL){
+		ListNode *next = cur->next;
+
+        if (cur->item % 2 != 0)  // 홀수면 삭제
+        {
+            if (prev == NULL){ 			// 첫 노드가 홀수
+				q->ll.head = next;  	// head 앞으로 당김
+            }
+            else{                    	// 중간/끝 노드가 홀수면 
+				prev->next = next;		 // prev와 next 연결 
+            }
+			free(cur); 					// 동적 메모리 해제 (중요)
+			q->ll.size--;				// 사이즈 줄이기 				
+        }
+        else{  // 짝수면 남기기
+			prev = cur;					// 보존 체인의 꼬리 갱신
+        }
+		cur = next;	
+	}
+}
+void removeOddValuesWithFunc(Queue *q)
+{
+    if (q == NULL || q->ll.head == NULL || q->ll.size == 0) return;
+
+    int i = 0;
+    while (i < q->ll.size) {
+        ListNode *node = findNode(&q->ll, i);  // i번째 노드
+        if (node == NULL) break;               // 방어코드
+
+        if (node->item & 1) {
+            // 홀수 → i번째 노드 제거
+            removeNode(&q->ll, i);
+        } else {
+            // 짝수 → 유지, 다음 인덱스로 이동
+            i++;
+        }
+    }
+}
 //////////////////////////////////////////////////////////////////////////////////
 
 void enqueue(Queue *q, int item) {
