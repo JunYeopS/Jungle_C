@@ -109,10 +109,41 @@ int main()
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+Write reverseQueue() to reverse a queue using a stack.
+Note: everseQueue() function 
+1. only uses push() and pop() when adding or
+removing integers from the stack
+2. only uses enqueue() and dequeue() when adding or removing integers from the queue.
+3. Remember to empty the stack at the beginning, if the stack is not empty.*/
+//스택 사용해서 큐를 역순으로 
+void reverse(Queue *q){
+    if (q == NULL || isEmptyQueue(q)) return;
 
-void reverse(Queue *q)
-{
-/* add your code here */
+    //스택은 push/pop만 사용
+    Stack s;
+    s.ll.head = NULL;
+    s.ll.size = 0;
+
+    //  3. empty the stack at the beginning, if the stack is not empty.
+    while (!isEmptyStack(&s)){
+		pop(&s);
+	}
+	
+    // 큐에서 전부 꺼내어 스택에 push
+    //    큐 front -> 스택 top 으로 올라가므로 역순이 됨.
+    while (!isEmptyQueue(q)) {
+        int dequeued = dequeue(q);  // 큐에서 하나 꺼내고
+        push(&s, dequeued);         // 스택에 쌓기
+    }
+
+    // 2) 스택에서 pop 하여 큐에 enqueue
+    //    스택은 LIFO이므로 꺼내는 순서가 거꾸로 → 큐에 다시 넣으면 완전 반전
+    while (!isEmptyStack(&s)) {
+        int poped = pop(&s);     // 스택에서 하나 꺼내고
+        enqueue(q, poped);       // 큐 뒤에 넣기
+    }
+	
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
