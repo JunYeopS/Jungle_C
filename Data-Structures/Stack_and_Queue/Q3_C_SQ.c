@@ -101,9 +101,21 @@ int main()
 
 /////////////////////////////////////////////////////////////////////////////////
 
-int isStackPairwiseConsecutive(Stack *s)
-{
-  /* add your code here */
+int isStackPairwiseConsecutive(Stack *s){
+	
+	if (s->ll.size % 2 != 0){
+		return 0;
+	}
+	
+	while (!isEmptyStack(s)){
+		int poped_1 = pop(s);
+		int poped_2 = pop(s);
+
+		if (poped_1 != poped_2 +1||poped_1 == poped_2-1){
+			return 0;
+		}
+	}
+	return 1;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
