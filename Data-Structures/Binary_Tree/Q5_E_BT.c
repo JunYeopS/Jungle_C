@@ -18,7 +18,7 @@ typedef struct _btnode
     struct _btnode *right;
 } BTNode;   // You should not change the definition of BTNode
 
-/////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////  /////////////////////////////////////
 
 typedef struct _stackNode
 {
@@ -105,7 +105,18 @@ int main()
 
 void mirrorTree(BTNode *node)
 {
-	/* add your code here */
+	if (node == NULL) return;
+
+    // 반전 용도 BTNode temp 선언 
+    // temp에 node left 임시 저장  
+    BTNode *temp = node->left;
+    // left는 right로 바꿔주고 
+    node->left = node->right;
+    // right는 임시 저장한 temp(node에 왼쪽이였던 것)으로 갱신 
+    node ->right = temp;    
+    
+    mirrorTree(node->left);
+    mirrorTree(node->right);
 }
 
 //////////////////////////////////////////////////////////////////////////////////
