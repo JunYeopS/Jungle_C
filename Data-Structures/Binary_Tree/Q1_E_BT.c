@@ -112,11 +112,21 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-
+/*Write a recursive C function identical() to determine whether two binary
+trees are structurally identical, assuming the two binary trees as tree1 and tree2. This
+function returns 1 if two binary trees are structurally identical; otherwise, it returns 0.
+*/
 int identical(BTNode *tree1, BTNode *tree2)
-
 {
-   /* add your code here */
+    //都为NULL return 1
+    if (tree1 == NULL && tree2 == NULL) return 1;
+    // 只有一个为NULL return 0；
+    if (tree1 == NULL || tree2 ||NULL) return 0;
+    // else if item不一样 return 0；
+    if (tree1->item != tree2->item)return 0;
+
+    // else 检验左右return之积
+    return identical(tree1->left,tree2->left) && identical(tree1->right ,tree2->right);
 }
 
 /////////////////////////////////////////////////////////////////////////////////
