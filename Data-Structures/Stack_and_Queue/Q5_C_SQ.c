@@ -106,10 +106,19 @@ int main()
 }
 
 ////////////////////////////////////////////////////////////
-
+/*(recursiveReverseQueue) Write a recursive C function recursiveReverseQueue()
+that reverses the order of items stored in a queue of integers*/
 void recursiveReverse(Queue *q)
 {
-/* add your code here */
+	// empty면 그냥 리턴 
+	if (isEmptyQueue(q)||q->ll.size ==1){
+		return;
+	}
+
+	int temp = dequeue(q); //앞에서 하나 꺼내기
+	recursiveReverse(q);  // 남은 큐 뒤집기
+	enqueue(q,temp); //꺼낸 원소를 뒤에 붙이기
+
 }
 
 //////////////////////////////////////////////////////////////////
