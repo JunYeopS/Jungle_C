@@ -121,7 +121,7 @@ int identical(BTNode *tree1, BTNode *tree2)
     //都为NULL return 1
     if (tree1 == NULL && tree2 == NULL) return 1;
     // 只有一个为NULL return 0；
-    if (tree1 == NULL || tree2 ||NULL) return 0;
+    if (tree1 == NULL || tree2 == NULL) return 0;
     // else if item不一样 return 0；
     if (tree1->item != tree2->item)return 0;
 
