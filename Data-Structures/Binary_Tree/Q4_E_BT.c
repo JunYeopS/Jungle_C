@@ -99,11 +99,23 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-
+/*
+Write a recursive C function sumOfOddNodes() that accepts a pointer to the
+root node of a binary tree of integers and return the sum of all odd numbers in the tree.*/
 int sumOfOddNodes(BTNode *node)
 
 {
-    /* add your code here */
+    if (node==NULL) return 0;
+
+    int left = sumOfOddNodes(node->left);
+    int right = sumOfOddNodes(node->right);
+
+    // 홀수면 
+    if ((node->item &1) ){
+        return left+right+node->item;
+    }
+    return left+right;
+    
 }
 
 //////////////////////////////////////////////////////////////////////////////////
