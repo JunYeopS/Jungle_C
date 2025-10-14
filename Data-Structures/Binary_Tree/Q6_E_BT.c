@@ -102,10 +102,22 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-
+/*
+ Write a C function printSmallerValues() that accepts a pointer to the
+root node of a binary tree and prints all integers stored in the tree that is smaller than a given value m.*/
 void printSmallerValues(BTNode *node, int m)
 {
-	/* add your code here */
+    //base case 
+    if (node == NULL)return;
+    
+    int item = node->item;
+    
+    //preoder => root, left , right
+    if (item < m){
+        printf("%d ",item);
+    }
+    printSmallerValues(node->left,m);
+    printSmallerValues(node->right,m);
 }
 
 //////////////////////////////////////////////////////////////////////////////////
