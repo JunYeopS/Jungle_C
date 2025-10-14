@@ -108,10 +108,23 @@ int main()
 }
 
 ////////////////////////////////////////////////////////////
-
+/*(removeUntilStack) Write a C function removeUntilStack() that pops all values off a
+stack of integers until the first occurrence of the chosen value.*/
 void removeUntil(Stack *s, int value)
 {
-/* add your code here */
+	if (s==NULL||isEmptyStack(s)) return;
+
+	int size = s->ll.size; // 현재 크기(고정)
+
+	for (int i = 0; i <size; i++){
+		 // top이 value면 멈춤(요구사항: value는 pop하지 않음)
+		if (peek(s) == value){
+			return;
+		}else{
+			// top != value 이면 pop
+			pop(s);
+		}
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////
