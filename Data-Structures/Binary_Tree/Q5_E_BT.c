@@ -102,7 +102,11 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-
+/*(mirrorTree) Write a recursive C function mirrorTree() that will modify a binary tree so that the
+resulting tree is a mirror image of the original structure. You should not create any intermediate or
+temporary trees. The function accepts a single parameter: a pointer to the root note of the binary tree to
+be mirrored.
+*/
 void mirrorTree(BTNode *node)
 {
 	if (node == NULL) return;
