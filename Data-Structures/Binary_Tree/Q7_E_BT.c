@@ -8,7 +8,7 @@ Purpose: Implementing the required functions for Question 7 */
 
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <limits.h>
 //////////////////////////////////////////////////////////////////////////////////
 
 typedef struct _btnode
@@ -99,10 +99,24 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-
+/*
+ Write a C function smallestValue() that returns the smallest value stored in a
+given tree. The function accepts a pointer to the root of the given tree.*/
 int smallestValue(BTNode *node)
 {
-	/* add your code here */
+    // base case: 최소값을 찾기 위해 매우 큰값을 return 
+    if (node == NULL) return (INT_MAX);
+
+    // Left와 right 각각 재귀 호출
+    int left = smallestValue(node->left);
+    int right = smallestValue(node->right);
+    
+    int cur = node->item;
+    
+    // left, right중 작은걸 찾아서 node->item을 반환            
+    if (left  < cur) cur = left;
+    if (right < cur) cur = right;
+    return cur;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
