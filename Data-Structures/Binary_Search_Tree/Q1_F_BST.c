@@ -90,11 +90,33 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-
+/*(levelOrderTraversal) Write an iterative C function levelOrderTraversal 
+1. prints a level-by-level traversal of the binary tree using a queue, starting at the root node level. 
+2. only use enqueue() or dequeue() operations when you add or remove integers from the queue. 
+3.Remember to empty the queue at the beginning, if the queue is not empty
+*/
 void levelOrderTraversal(BSTNode* root)
 {
+	//3
+	if (root == NULL) return ;
 
-    /* add your code here */
+	// 초기화 
+	QueueNode *head = NULL;
+	QueueNode *tail = NULL;
+
+	// queue에 root node 넣기 
+	enqueue(&head, &tail, root);
+
+	while (!isEmpty(head)){
+		
+		// dequeue를 현재 노드를 받고 (dequeue BSTNode 반환 )
+		BSTNode *cur = dequeue(&head, &tail);
+
+		printf("%d ",cur->item);
+		// left가 있으면 left먼저 enqueue (enqueue BSTNode 를 인자로 받음 )
+		if (cur->left != NULL) enqueue(&head, &tail,cur->left);
+		if (cur->right != NULL) enqueue(&head, &tail,cur->right);
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////
