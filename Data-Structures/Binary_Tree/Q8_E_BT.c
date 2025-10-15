@@ -99,10 +99,25 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-
+/*prints the values stored in all nodes of a binary tree that have at 
+least one great-grandchild. The function accepts a single parameter: 
+a pointer to the root note of the binary tree.*/
 int hasGreatGrandchild(BTNode *node)
 {
-	/* add your code here */
+    // 빈 트리의 높이
+	if (node==NULL) return -1;
+
+    int left = hasGreatGrandchild(node->left);
+    int right = hasGreatGrandchild(node->right);
+
+    // 노드의 h = 각 자식 노드중 h +1 
+    int h = (left > right ? left:right) +1;
+
+    // 증손자가 있으면 해당 node item print
+    if (h>=3){
+        printf("%d ", node->item);
+    }
+    return h;    
 }
 
 //////////////////////////////////////////////////////////////////////////////////
