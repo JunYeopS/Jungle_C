@@ -87,10 +87,33 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-
+/*
+1. prints the in-order traversal of a binary search tree using a stack. 
+2. use push() or pop() operations when you add or remove integers from the stack. 
+3. Remember to empty the stack at the beginning, if the stack is not empty.*/
 void inOrderTraversal(BSTNode *root)
 {
-	 /* add your code here */
+	if (root == NULL) return;
+
+	Stack s;
+	s.top = NULL;
+
+	BSTNode *cur = root;
+
+	// while문 왼쪽 null일때까지 으로 쭉 들어가서 push
+    while (cur != NULL || !isEmpty(&s)) {
+        // 왼쪽 끝까지 push // right가 NUlL 이면 패스 
+        while (cur != NULL) {
+            push(&s, cur);
+            cur = cur->left;
+        }
+		// 하나 pop 해서 방문(출력)
+		cur = pop(&s);
+		printf ("%d ",cur->item);
+
+		cur = cur->right;
+    }
+	
 }
 
 ///////////////////////////////////////////////////////////////////////////////
